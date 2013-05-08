@@ -26,10 +26,12 @@
                         a subclass of `NSManagedObject`.
  @param predicate       Optional predicate to filter results.
  @param sortDescriptors Optional sort descriptors.
+ @param cacheName			  Optional name for the cache.
  */
 - (void)configureFetcherWithClass:(Class)klass
 												predicate:(NSPredicate *)predicate
-									sortDescriptors:(NSArray *)sortDescriptors;
+									sortDescriptors:(NSArray *)sortDescriptors
+												cacheName:(NSString *)cacheName;
 
 /** Configures the fetched results controller.
  
@@ -38,10 +40,12 @@
  @param entityName      The name of the entity to fetch.
  @param predicate       Optional predicate to filter results.
  @param sortDescriptors Optional sort descriptors.
+ @param cacheName			  Optional name for the cache.
  */
 - (void)configureFetcherWithEntityName:(NSString *)entityName
 														 predicate:(NSPredicate *)predicate
-											 sortDescriptors:(NSArray *)sortDescriptors;
+											 sortDescriptors:(NSArray *)sortDescriptors
+														 cacheName:(NSString *)cacheName;
 
 
 #pragma mark - Long-tap menu helper

@@ -11,6 +11,7 @@
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchRequest *fetchRequest;
+@property (nonatomic, copy) NSString *cacheName;
 
 @property (nonatomic, strong) NSMutableArray *objectChanges;
 @property (nonatomic, strong) NSMutableArray *sectionChanges;
@@ -23,23 +24,36 @@
 - (void)configureFetcherWithClass:(Class)klass
 												predicate:(NSPredicate *)predicate
 									sortDescriptors:(NSArray *)sortDescriptors
+												cacheName:(NSString *)cacheName
 {
 	NSString *entityName = NSStringFromClass(klass);
 	[self configureFetcherWithEntityName:entityName
 														 predicate:predicate
-											 sortDescriptors:sortDescriptors];
+											 sortDescriptors:sortDescriptors
+														 cacheName:cacheName];
 }
 
 - (void)configureFetcherWithEntityName:(NSString *)entityName
 														 predicate:(NSPredicate *)predicate
 											 sortDescriptors:(NSArray *)sortDescriptors
+														 cacheName:(NSString *)cacheName
 {
-	_fetchRequest = [[NSFetchRequest alloc] init];
+	// get rid of the fetched results controller
+	_fetchedResultsController = nil;
 	
-	NSEntityDescription *entity = [NSEntityDescription entityForName:entityName
-																						inManagedObjectContext:self.managedObjectContext];
-	[_fetchRequest setEntity:entity];
-	[_fetchRequest setSortDescriptors:sortDescriptors];
+	// configure the fetch request
+	_fetchRequest = [[NSFetchRequest alloc] init];
+	_fetchRequest.entity = [NSEntityDescription entityForName:entityName
+																		 inManagedObjectContext:self.managedObjectContext];;
+	_fetchRequest.sortDescriptors = sortDescriptors;
+	_fetchRequest.predicate = predicate;
+	
+	// set up the cache name
+	if (cacheName != nil) {
+		self.cacheName = cacheName;
+	} else {
+		self.cacheName = [NSString stringWithFormat:@"Cache%@", entityName];
+	}
 }
 
 - (void)addLongTapMenuItems:(NSArray *)menuItems

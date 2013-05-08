@@ -20,7 +20,8 @@
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
 	[self configureFetcherWithEntityName:@"Event"
 														 predicate:nil
-											 sortDescriptors:@[sortDescriptor]];
+											 sortDescriptors:@[sortDescriptor]
+														 cacheName:nil];
 	
 	// add button
 	UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
