@@ -28,7 +28,8 @@ The fetched results controller logic is taken from [Ash Furrow's code](https://g
 
 * Call `addLongTapMenuItems:` with the `UIMenuItem` objects that you'd like to enable.
 * Implement your selectors of those `UIMenuItem` objects. To get the element use the selection of the collection view.
-* You can customise the behaviour (and the default cut/copy/paste actions which are disabled by default) by implement the standard delegate collection view delegate methods for handling menu items.
+* Optionally overwrite the `shouldShowMenuItemForAction:forItemAtIndexPath` method to customise which
+  action/menu item should be enabled for which item in your collection view.
 
 ## Using the `UIRefreshControl` helper
 
