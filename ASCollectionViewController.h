@@ -57,6 +57,16 @@
  */
 - (void)addLongTapMenuItems:(NSArray *)menuItems;
 
+/** Optional method to overwrite to determine which menu-item action should be
+  enabled for which index path.
+ 
+ @param action    The action of a menu item
+ @param indexpath The index path of the item in the collection view
+ @return `true` if the menu item should be enabled/displayed for the specified
+         index path.
+ */
+- (BOOL)shouldShowMenuItemForAction:(SEL)action
+								 forItemAtIndexPath:(NSIndexPath *)indexPath;
 
 #pragma mark - Pull to refresh helper
 

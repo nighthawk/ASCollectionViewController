@@ -123,7 +123,12 @@
 	[collectionView selectItemAtIndexPath:indexPath
 															 animated:NO
 												 scrollPosition:UICollectionViewScrollPositionNone];
-	return NO; // for default cut/copy/paste
+	
+	return NO; // for defaults such as cut/copy/paste. the method which does the
+	           // actual determination for which menu item should be shown for
+	           // for item in the collection view is handled by
+						 // `canPerformAction:withSender:` in combination with the custom
+						 // `shouldShowMenuItemForAction:forItemAtIndexPath:` method.
 }
 
 - (void)collectionView:(UICollectionView *)collectionView
@@ -136,6 +141,18 @@
 
 #pragma mark - UIMenuController required methods
 
+- (BOOL)shouldShowMenuItemForAction:(SEL)action
+								 forItemAtIndexPath:(NSIndexPath *)indexPath;
+{
+	// By default the selector should match your UIMenuItem selector
+	for (UIMenuItem *menuItem in self.menuItems) {
+		if (menuItem.action == action)
+			return YES;
+	}
+	
+	return NO;
+}
+
 - (BOOL)canBecomeFirstResponder
 {
 	// NOTE: This menu item will not show if this is not YES!
@@ -145,14 +162,9 @@
 - (BOOL)canPerformAction:(SEL)action
 							withSender:(id)sender
 {
-	// The selector(s) should match your UIMenuItem selector
-	for (UIMenuItem *menuItem in self.menuItems) {
-		if (menuItem.action == action)
-			return YES;
-	}
-	return NO;
+	NSIndexPath *indexPath = [self.collectionView indexPathsForSelectedItems].lastObject;
+	return [self shouldShowMenuItemForAction:action forItemAtIndexPath:indexPath];
 }
-
 
 #pragma mark - Fetched results controller
 
