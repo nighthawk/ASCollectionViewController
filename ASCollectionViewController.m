@@ -107,6 +107,14 @@
 	self.sectionChanges = [NSMutableArray array];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	
+	// re-assign menu items
+	[UIMenuController sharedMenuController].menuItems = self.menuItems;
+}
+
 #pragma mark - Collection view delegate
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath

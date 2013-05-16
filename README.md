@@ -28,7 +28,7 @@ The fetched results controller logic is taken from [Ash Furrow's code](https://g
 
 * Call `addLongTapMenuItems:` with the `UIMenuItem` objects that you'd like to enable.
 * Implement your selectors of those `UIMenuItem` objects. To get the element use the selection of the collection view.
-* Optionally overwrite the `shouldShowMenuItemForAction:forItemAtIndexPath` method to customise which
+* Optionally overwrite the `shouldShowMenuItemForAction:forItemAtIndexPath:` method to customise which
   action/menu item should be enabled for which item in your collection view.
 
 ## Using the `UIRefreshControl` helper
