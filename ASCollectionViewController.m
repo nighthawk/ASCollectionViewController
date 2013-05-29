@@ -200,13 +200,18 @@
 	
 	NSError *error = nil;
 	if (![self.fetchedResultsController performFetch:&error]) {
-		// Replace this implementation with code to handle the error appropriately.
-		// abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		abort();
+      [self handleFetchResultsControllerError:error];
 	}
 	
 	return _fetchedResultsController;
+}
+
+- (void) handleFetchResultsControllerError:(NSError*)error
+{
+   // Override this implementation to handle the error appropriately.
+   // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+   NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+   abort();
 }
 
 - (void)controller:(NSFetchedResultsController *)controller
