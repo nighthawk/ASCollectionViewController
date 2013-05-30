@@ -116,4 +116,10 @@
 				fromIndexPath:(NSIndexPath *)indexPath
 					toIndexPath:(NSIndexPath *)toIndexPath;
 
+/** This method should be overridden by subclasses to handle errors that may occur when performing the inital fetch in the fetched results controller 
+ 
+ @param error     The error that occurred when performing the initial fetch on the fetchedResultsController
+ */
+- (void) handleFetchResultsControllerError:(NSError*)error;
+
 @end
