@@ -6,9 +6,9 @@ A `UICollectionViewController` subclass that makes working with `NSFetchedResult
 In particular it:
 * Takes care of batching together any changes to your model to update the `collectionView`. This includes call backs if you need additional logic to respond to deletions/insertions/updates/moves.
 * Enables long-tap menus on cells using `UIMenuItem` objects.
-* Add a `UIRefreshControl` control.
+* Makes it easy to add a `UIRefreshControl` control.
 
-The fetched results controller logic is taken from [Ash Furrow's code](https://github.com/AshFurrow/UICollectionView-NSFetchedResultsController) which in turn took it from [this gist](https://gist.github.com/4440c1cba83318e276bb).
+The fetched results controller logic is taken from [Ash Furrow's code](https://github.com/AshFurrow/UICollectionView-NSFetchedResultsController) who in turn took it from [this gist](https://gist.github.com/4440c1cba83318e276bb).
 
 # Setup
 
@@ -22,6 +22,7 @@ The fetched results controller logic is taken from [Ash Furrow's code](https://g
 * Then call one of the `configureFetcher...` methods.
 * Implement the `numberOfSectionsInCollectionView:`, `collectionView:numberOfItemsInSection:` and `collectionView:cellForItemAtIndexPath:` methods as usual. Note that you have access to the `fetchedResultsController` property to look up section info and objects.
 * Any changes to the CoreData model will automatically be reflected.
+* Implement the `handleFetchResultsControllerError` method as the default implementation is to crash with an `abort()` call.
 * Optionally, implement any of the `didInsert/Delete/Update/MoveObject` methods if you need to so something special.
 
 ## Using the `UIMenuController` helper
