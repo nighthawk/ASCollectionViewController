@@ -1,5 +1,8 @@
-# `ASCollectionViewController`
+# `ASCollectionViewController` [![Build Status](https://travis-ci.org/nighthawk/ASCollectionViewController.png)](https://travis-ci.org/nighthawk/ASCollectionViewController)
 
+
+[![Badge w/ Version](http://cocoapod-badges.herokuapp.com/v/ASCollectionViewController/badge.png)](http://cocoadocs.org/docsets/ASCollectionViewController)
+[![Badge w/ Platform](http://cocoapod-badges.herokuapp.com/p/ASCollectionViewController/badge.png)](http://cocoadocs.org/docsets/ASCollectionViewController)
 
 A `UICollectionViewController` subclass that makes working with `NSFetchedResultsController`, `UIMenuController` and `UIRefreshControl` easier.
 
