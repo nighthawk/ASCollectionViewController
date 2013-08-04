@@ -8,6 +8,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
+typedef void(^ASCollectionViewControllerFetchRequestBlock)(NSFetchRequest *request);
+
 @interface ASCollectionViewController : UICollectionViewController <NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
@@ -20,7 +22,7 @@
 
 /** Configures the fetched results controller.
  
- NOTE: You only need to call on of the providerd `configureFetcher` methods.
+ NOTE: You only need to call on of the provided `configureFetcher` methods.
  
  @param klass           The class representing the entity to fetch. Needs to be 
                         a subclass of `NSManagedObject`.
@@ -35,7 +37,7 @@
 
 /** Configures the fetched results controller.
  
- NOTE: You only need to call on of the providerd `configureFetcher` methods.
+ NOTE: You only need to call on of the provided `configureFetcher` methods.
  
  @param entityName      The name of the entity to fetch.
  @param predicate       Optional predicate to filter results.
@@ -46,6 +48,31 @@
 														 predicate:(NSPredicate *)predicate
 											 sortDescriptors:(NSArray *)sortDescriptors
 														 cacheName:(NSString *)cacheName;
+
+/** Configures the fetched results controller.
+ 
+ NOTE: You only need to call on of the provided `configureFetcher` methods.
+ 
+ @param klass           The class representing the entity to fetch. Needs to be
+ a subclass of `NSManagedObject`.
+ @param cacheName			  Optional name for the cache.
+ @param requestBlock    Optional block which gets the fetch request passed in
+ */
+- (void)configureFetcherWithClass:(Class)klass
+												cacheName:(NSString *)cacheName
+								 usedFetchRequest:(ASCollectionViewControllerFetchRequestBlock)requestBlock;
+
+/** Configures the fetched results controller.
+ 
+ NOTE: You only need to call on of the provided `configureFetcher` methods.
+ 
+ @param entityName      The name of the entity to fetch.
+ @param cacheName			  Optional name for the cache.
+ @param requestBlock    Optional block which gets the fetch request passed in
+ */
+- (void)configureFetcherWithEntityName:(NSString *)entityName
+														 cacheName:(NSString *)cacheName
+											usedFetchRequest:(ASCollectionViewControllerFetchRequestBlock)requestBlock;
 
 
 #pragma mark - Long-tap menu helper

@@ -33,10 +33,33 @@
 														 cacheName:cacheName];
 }
 
+- (void)configureFetcherWithClass:(Class)klass
+												cacheName:(NSString *)cacheName
+								 usedFetchRequest:(ASCollectionViewControllerFetchRequestBlock)requestBlock
+{
+	NSString *entityName = NSStringFromClass(klass);
+	[self configureFetcherWithEntityName:entityName
+														 cacheName:cacheName
+											usedFetchRequest:requestBlock];
+}
+
 - (void)configureFetcherWithEntityName:(NSString *)entityName
 														 predicate:(NSPredicate *)predicate
 											 sortDescriptors:(NSArray *)sortDescriptors
 														 cacheName:(NSString *)cacheName
+{
+	[self configureFetcherWithEntityName:entityName
+														 cacheName:cacheName
+											usedFetchRequest:
+	 ^(NSFetchRequest *request) {
+		 request.sortDescriptors = sortDescriptors;
+		 request.predicate = predicate;
+	 }];
+}
+
+- (void)configureFetcherWithEntityName:(NSString *)entityName
+														 cacheName:(NSString *)cacheName
+											usedFetchRequest:(ASCollectionViewControllerFetchRequestBlock)requestBlock
 {
 	// get rid of the fetched results controller
 	_fetchedResultsController = nil;
@@ -45,8 +68,9 @@
 	_fetchRequest = [[NSFetchRequest alloc] init];
 	_fetchRequest.entity = [NSEntityDescription entityForName:entityName
 																		 inManagedObjectContext:self.managedObjectContext];;
-	_fetchRequest.sortDescriptors = sortDescriptors;
-	_fetchRequest.predicate = predicate;
+	if (requestBlock) {
+		requestBlock(_fetchRequest);
+	}
 	
 	// set up the cache name
 	if (cacheName != nil) {
