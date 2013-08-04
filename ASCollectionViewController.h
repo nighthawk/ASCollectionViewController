@@ -97,6 +97,11 @@ typedef void(^ASCollectionViewControllerFetchRequestBlock)(NSFetchRequest *reque
 
 #pragma mark - Pull to refresh helper
 
+/** The refresh control of the collection view if there's one.
+ @ return The `UIRefreshControl` instance previously added or `nil`.
+ */
+- (UIRefreshControl *)refreshControl;
+
 /** Adds a refresh control to the collection view.
  
  @param target An object that is a recipient of action messages sent by the 
@@ -109,6 +114,9 @@ typedef void(^ASCollectionViewControllerFetchRequestBlock)(NSFetchRequest *reque
  */
 - (UIRefreshControl *)addRefreshControlWithTarget:(id)target action:(SEL)selector;
 
+/** Removed the refresh control again from the collection view.
+ */
+- (void)removeRefreshControl;
 
 #pragma mark - Helpers for subclasses
 

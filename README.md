@@ -36,7 +36,8 @@ The fetched results controller logic is taken from [Ash Furrow's code](https://g
 
 ## Using the `UIRefreshControl` helper
 
-* Call `addRefreshControlWithTarget:action:` to add a UIRefreshControl to your collection view.
+* Call `addRefreshControlWithTarget:action:` to add a `UIRefreshControl` to your collection view.
+* Optionally, call `removeRefreshControl` to remove it again.
 
 # Example
 

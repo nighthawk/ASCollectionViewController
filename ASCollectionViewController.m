@@ -80,20 +80,46 @@
 	}
 }
 
+
 - (void)addLongTapMenuItems:(NSArray *)menuItems
 {
 	self.menuItems = menuItems;
 	[UIMenuController sharedMenuController].menuItems = menuItems;
 }
 
+#pragma mark - UIRefreshControl related methods
+
+- (UIRefreshControl *)refreshControl
+{
+	for (UIView *subview in self.collectionView.subviews) {
+		if ([subview isKindOfClass:[UIRefreshControl class]]) {
+			return (UIRefreshControl *) subview;
+		}
+	}
+	return nil;
+}
+
 - (UIRefreshControl *)addRefreshControlWithTarget:(id)target action:(SEL)selector
 {
-	UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-	[refreshControl addTarget:self action:selector
+	// remove all old refresh controls to make sure
+	UIRefreshControl *refresher = [self refreshControl];
+	if (! refresher) {
+		UIRefreshControl *refresher = [[UIRefreshControl alloc] init];
+		[self.collectionView addSubview:refresher];
+	}
+	
+	// now add the new one
+	[refresher addTarget:self action:selector
 					 forControlEvents:UIControlEventValueChanged];
-	[self.collectionView addSubview:refreshControl];
 	self.collectionView.alwaysBounceVertical = YES;
-	return refreshControl;
+	return refresher;
+}
+
+- (void)removeRefreshControl
+{
+	UIRefreshControl *refreshControl = [self refreshControl];
+	[refreshControl removeTarget:nil action:NULL forControlEvents:UIControlEventValueChanged];
+	self.collectionView.alwaysBounceVertical = NO;
 }
 
 #pragma mark - Defaults
