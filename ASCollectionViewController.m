@@ -101,14 +101,12 @@
 
 - (UIRefreshControl *)addRefreshControlWithTarget:(id)target action:(SEL)selector
 {
-	// remove all old refresh controls to make sure
 	UIRefreshControl *refresher = [self refreshControl];
 	if (! refresher) {
 		UIRefreshControl *refresher = [[UIRefreshControl alloc] init];
 		[self.collectionView addSubview:refresher];
 	}
 	
-	// now add the new one
 	[refresher addTarget:self action:selector
 					 forControlEvents:UIControlEventValueChanged];
 	self.collectionView.alwaysBounceVertical = YES;
