@@ -6,17 +6,20 @@
 A `UICollectionViewController` subclass that makes working with `NSFetchedResultsController`, `UIMenuController` and `UIRefreshControl` easier.
 
 In particular it:
+
 * Takes care of batching together any changes to your model to update the `collectionView`. This includes call backs if you need additional logic to respond to deletions/insertions/updates/moves.
 * Enables long-tap menus on cells using `UIMenuItem` objects.
 * Makes it easy to add a `UIRefreshControl` control.
 
-The fetched results controller logic is taken from [Ash Furrow's code](https://github.com/AshFurrow/UICollectionView-NSFetchedResultsController) who in turn took it from [this gist](https://gist.github.com/4440c1cba83318e276bb).
+The fetched results controller logic is taken from [this gist](https://gist.github.com/iwasrobbed/5528897) which is based on [Blake Watters' idea](https://github.com/AshFurrow/UICollectionView-NSFetchedResultsController).
 
 # Setup
 
-* Clone the repository
-** Add `ASCollectionViewController.h` and `ASCollectionViewController.m` to your project.
-** Subclass `ASCollectionViewController` instead of `UICollectionViewController`
+1) Add to your Podfile (or manually add `ASCollectionViewController.h` and `ASCollectionViewController.m`):
+
+        pod 'ASCollectionViewController', '~> 0.1.0'
+
+2) Subclass `ASCollectionViewController` instead of `UICollectionViewController`
 
 ## Using the `NSFetchedResultsController` helper
 
