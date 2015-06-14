@@ -8,17 +8,19 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef void(^ASCollectionViewControllerFetchRequestBlock)(NSFetchRequest *request);
 
 @interface ASCollectionViewController : UICollectionViewController <NSFetchedResultsControllerDelegate>
 
-@property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong, readonly, nullable) NSFetchedResultsController *fetchedResultsController;
 
 #pragma mark - Necessities to set up fetched results controller
 
 /** The managed object context. Make sure to set this first.
  */
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong, nullable) NSManagedObjectContext *managedObjectContext;
 
 /** Configures the fetched results controller.
  
@@ -31,9 +33,9 @@ typedef void(^ASCollectionViewControllerFetchRequestBlock)(NSFetchRequest *reque
  @param cacheName			  Optional name for the cache.
  */
 - (void)configureFetcherWithClass:(Class)klass
-												predicate:(NSPredicate *)predicate
-									sortDescriptors:(NSArray *)sortDescriptors
-												cacheName:(NSString *)cacheName;
+												predicate:(nullable NSPredicate *)predicate
+									sortDescriptors:(nullable NSArray *)sortDescriptors
+												cacheName:(nullable NSString *)cacheName;
 
 /** Configures the fetched results controller.
  
@@ -45,9 +47,9 @@ typedef void(^ASCollectionViewControllerFetchRequestBlock)(NSFetchRequest *reque
  @param cacheName			  Optional name for the cache.
  */
 - (void)configureFetcherWithEntityName:(NSString *)entityName
-														 predicate:(NSPredicate *)predicate
-											 sortDescriptors:(NSArray *)sortDescriptors
-														 cacheName:(NSString *)cacheName;
+														 predicate:(nullable NSPredicate *)predicate
+											 sortDescriptors:(nullable NSArray *)sortDescriptors
+														 cacheName:(nullable NSString *)cacheName;
 
 /** Configures the fetched results controller.
  
@@ -59,8 +61,8 @@ typedef void(^ASCollectionViewControllerFetchRequestBlock)(NSFetchRequest *reque
  @param requestBlock    Optional block which gets the fetch request passed in
  */
 - (void)configureFetcherWithClass:(Class)klass
-												cacheName:(NSString *)cacheName
-								 usedFetchRequest:(ASCollectionViewControllerFetchRequestBlock)requestBlock;
+												cacheName:(nullable NSString *)cacheName
+								 usedFetchRequest:(nullable ASCollectionViewControllerFetchRequestBlock)requestBlock;
 
 /** Configures the fetched results controller.
  
@@ -71,8 +73,8 @@ typedef void(^ASCollectionViewControllerFetchRequestBlock)(NSFetchRequest *reque
  @param requestBlock    Optional block which gets the fetch request passed in
  */
 - (void)configureFetcherWithEntityName:(NSString *)entityName
-														 cacheName:(NSString *)cacheName
-											usedFetchRequest:(ASCollectionViewControllerFetchRequestBlock)requestBlock;
+														 cacheName:(nullable NSString *)cacheName
+											usedFetchRequest:(nullable ASCollectionViewControllerFetchRequestBlock)requestBlock;
 
 
 #pragma mark - Long-tap menu helper
@@ -100,7 +102,7 @@ typedef void(^ASCollectionViewControllerFetchRequestBlock)(NSFetchRequest *reque
 /** The refresh control of the collection view if there's one.
  @ return The `UIRefreshControl` instance previously added or `nil`.
  */
-- (UIRefreshControl *)refreshControl;
+- (nullable UIRefreshControl *)refreshControl;
 
 /** Adds a refresh control to the collection view.
  
@@ -158,3 +160,5 @@ typedef void(^ASCollectionViewControllerFetchRequestBlock)(NSFetchRequest *reque
 - (void) handleFetchResultsControllerError:(NSError*)error;
 
 @end
+
+NS_ASSUME_NONNULL_END
